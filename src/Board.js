@@ -140,29 +140,46 @@
     // --------------------------------------------------------------
     //
     // test if a specific major diagonal on this board contains a conflict
-    hasMajorDiagonalConflictAt: function(majorDiagonalColumnIndexAtFirstRow) {
+    hasMajorDiagonalConflictAt: function(diagonalId) {
       //create diagonal array
+      var diagonal = [];
+      var board = this.rows();
       //loop through every row on board
+      for (var row = 0; row < board.length; row ++) {
         //loop through each square in the row
-        //if diff in square's col-row === parameter
-          //add the value of that square to diagonal array;
-      
+        for (var col = 0; col < board.length; col++) {
+          //if diff in square's col-row === parameter
+          if (col - row === diagonalId) {
+            //add the value of that square to diagonal array;  
+            diagonal.push(board[row][col]);
+          }
+        }
+      }
       //create sum var   
+      var sum = 0;
       //loop through diagonal array
+      for (var i = 0; i < diagonal.length; i++) {
         //sum up values in array
+        sum += diagonal[i];
+      }
       //return true if sum >= 2;
-      return false; // fixme
+      return sum >= 2;
     },
 
-    // test if any major diagonals on this board contain conflicts
+    // test if any major diagonals on this board contain conflicts (column - row)
     hasAnyMajorDiagonalConflicts: function() {
-      
       //max id is (total # of rows on board -1)
+      var maxId = this.rows().length;
       //min id is -(total # of rows on board-1)
+      var minId = -maxId + 1;
       //loop through -id to positive id
+      for (var i = minId; i < maxId; i++) {
         //call hasMajorDiagonalConflictAt with the id
-          //if true, return true
-      return false; // fixme
+        if (this.hasMajorDiagonalConflictAt(i)) {
+          return true;
+        }
+      }
+      return false;
     },
 
 
@@ -171,19 +188,47 @@
     // --------------------------------------------------------------
     //
     // test if a specific minor diagonal on this board contains a conflict
-    hasMinorDiagonalConflictAt: function(minorDiagonalColumnIndexAtFirstRow) {
-      return false; // fixme
+    hasMinorDiagonalConflictAt: function(diagonalId) {
+      //create diagonal array
+      var diagonal = [];
+      var board = this.rows();
+      //loop through every row on board
+      for (var row = 0; row < board.length; row ++) {
+        //loop through each square in the row
+        for (var col = 0; col < board.length; col++) {
+          //if diff in square's col-row === parameter
+          if (col + row === diagonalId) {
+            //add the value of that square to diagonal array;  
+            diagonal.push(board[row][col]);
+          }
+        }
+      }
+      //create sum var   
+      var sum = 0;
+      //loop through diagonal array
+      for (var i = 0; i < diagonal.length; i++) {
+        //sum up values in array
+        sum += diagonal[i];
+      }
+      //return true if sum >= 2;
+      return sum >= 2; 
     },
 
     // test if any minor diagonals on this board contain conflicts
     hasAnyMinorDiagonalConflicts: function() {
-      
       //max id is sum of bottom right square coordinates aka (# of rows-1, # of rows-1)
+      var maxId = (this.rows().length - 1) * 2;
       //min id is 0
+      var minId = 0;
       //loop from min id to max
-      //call HasAnyMinorDiagonalConflictAt
-        //if true, return true 
-      return false; // fixme
+      for (var i = minId; i <= maxId; i++) {
+        //call hasMinorDiagonalConflictAt with the id
+        if (this.hasMinorDiagonalConflictAt(i)) {
+          return true;
+        }
+      }
+      //if true, return true 
+      return false;
     }
 
     /*--------------------  End of Helper Functions  ---------------------*/
