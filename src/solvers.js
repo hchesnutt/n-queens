@@ -25,9 +25,57 @@ window.findNRooksSolution = function(n) {
 // return the number of nxn chessboards that exist, with n rooks placed such that none of them can attack each other
 window.countNRooksSolutions = function(n) {
   var solutionCount = undefined; //fixme
+  
+  //declare solutions results array
+  var solutions = [];
+  //create initial board with n
+  var boardObj = new Board({n:n}); //not the matrix
+  
+  var solver = function (boardObj, rowIndex, colIndex, counter) {
+  //helper function (board, nextPieceCoordinates)
+    // togglePiece: function(rowIndex, colIndex) 
+    boardObj.togglePiece(rowIndex, colIndex);
+    //check for conflicts
+    //check for row and column conflicts
+    if (boardObj.hasAnyRowConflicts() || boardObj.hasAnyColConflicts()) {
+      //if conflicts, toggle piece back 
+      boardObj.togglePiece(rowIndex, colIndex);
+      //return (out of function)
+      return;
+    } else {
+      //increment counter
+      counter++;
+      //if counter < n
+      if (counter < n) {
+        //loop through next row //optimization:
+        for (var i = 0; i < n; i++) {
+          //call helper function on new potential piece (board, potentialPiece, counter+1)
+          //skip same column
+          if (i !== colIndex) {
+            solver(boardObj, rowIndex + 1, i, counter);
+          }
+        }
+        //untoggle 
+        boardObj.togglePiece(rowIndex, colIndex);
+      } else if (counter === n) {
+        //push board to solutions
+        solutions.push(boardObj.rows());
+        //untoggle 
+        boardObj.togglePiece(rowIndex, colIndex);
+      }       
+    }  
+  };
+  
+  //loop through squares in initial board (only first row bc of optimization - )
+  for (var i = 0; i < n; i++) {
+    //call helper function (board, current square, counter)
+    solver(boardObj, 0, i, 0);
+    
+  }
 
   console.log('Number of solutions for ' + n + ' rooks:', solutionCount);
-  return solutionCount;
+  //return solutions array.length
+  return solutions.length;
 };
 
 // return a matrix (an array of arrays) representing a single nxn chessboard, with n queens placed such that none of them can attack each other
