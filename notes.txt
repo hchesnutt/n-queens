@@ -1,2 +1,3 @@
 - ask danny about var vs let
 - refactor to escape when first solution is found for findNRooks and findNQueens
+- countSolutions instead of pushing to array
