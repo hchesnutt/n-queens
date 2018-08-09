@@ -80,15 +80,6 @@
     // test if a specific row on this board contains a conflict
     // accepts a row index
     hasRowConflictAt: function(rowIndex) {
-<<<<<<< HEAD
-      let row = this.attributes[rowIndex];
-      let sum = 0;
-      // if sum > 1 there is a conflict at this index
-      for (let i = 0; i < row.length; i++) {
-        sum += row[i];
-      }
-      return sum > 1 ? true : false;
-=======
       // retrieve row with rowIndex
       var row = this.get(rowIndex);
       // initialize sum
@@ -99,22 +90,10 @@
       }
       // if sum < 2 return false 
       return sum >= 2;
->>>>>>> df6d645eba8361be04913733c9a65003023f056e
     },
 
     // test if any rows on this board contain conflicts
     hasAnyRowConflicts: function() {
-<<<<<<< HEAD
-      let wasTrue = false;
-      // if any row on board contains rowConflict return true
-      for (let i = 0; i < this.attributes.n; i++) {
-        if (this.hasRowConflictAt(i)) {
-          wasTrue = true;
-          break;
-        }
-      }
-      return wasTrue;
-=======
       var board = this.rows();
       // for each row, test each row
       for (var rowInd = 0; rowInd < board.length; rowInd++) {
@@ -124,7 +103,6 @@
         }
       }
       return false;
->>>>>>> df6d645eba8361be04913733c9a65003023f056e
     },
     
     
@@ -134,14 +112,6 @@
     //
     // test if a specific column on this board contains a conflict
     hasColConflictAt: function(colIndex) {
-<<<<<<< HEAD
-      let sum = 0;
-      // if sum > 1 there is a conflict at this index
-      for (let i = 0; i < this.attributes.n; i++) {
-        sum += this.attributes[i][colIndex];
-      }
-      return sum > 1 ? true : false;
-=======
       
       var sum = 0;
       var rows = this.rows();
@@ -150,22 +120,10 @@
         sum += square;
       }
       return sum >= 2; // fixme
->>>>>>> df6d645eba8361be04913733c9a65003023f056e
     },
     
     // test if any columns on this board contain conflicts
     hasAnyColConflicts: function() {
-<<<<<<< HEAD
-      let wasTrue = false;
-      // if any row on board contains colConflict return true
-      for (let i = 0; i < this.attributes.n; i++) {
-        if (this.hasColConflictAt(i)) {
-          wasTrue = true;
-          break;
-        }
-      }
-      return wasTrue;
-=======
       
       var firstRow = this.get(0);
       for (var i = 0; i < firstRow.length; i++) {
@@ -174,7 +132,6 @@
         }
       }
       return false; // fixme
->>>>>>> df6d645eba8361be04913733c9a65003023f056e
     },
     
     
@@ -183,44 +140,6 @@
     // --------------------------------------------------------------
     //
     // test if a specific major diagonal on this board contains a conflict
-<<<<<<< HEAD
-    hasMajorDiagonalConflictAt: function(diag) {
-      let sum = 0;
-      let n = this.attributes.n;
-      let startRow = Math.max(-diag, 0);
-      let endRow = Math.min(n - diag - 1, n - 1);
-      let startCol = Math.max(diag, 0);
-      let endCol = Math.min(n + diag - 1, n - 1);
-      console.log('Columns', startCol, endCol);
-      console.log('Rows', startRow, endRow);
-      for (let i = startRow; i < endRow + 1; i++) {
-        for (let j = startCol; j < endCol + 1; j++) {
-          if (j - i === diag) {
-            sum += this.attributes[i][j];
-          }
-        }
-      }
-      console.log(diag, sum, sum > 1 ? true : false);
-      return sum > 1 ? true : false;
-    },
-    
-    // test if any major diagonals on this board contain conflicts
-    hasAnyMajorDiagonalConflicts: function() {
-      let wasTrue = false;
-      let n = this.attributes.n;
-      // if any major Diagonal index on board contains a conflict return true
-      // iterate from -(n-1) to n-1 (technically you don't need to hit the corners)
-      for (let i = -n + 1; i < n; i++) {
-        // if (i === -2) {
-        //   debugger;
-        // }
-        if (this.hasMajorDiagonalConflictAt(i)) {
-          wasTrue = true;
-          break;
-        }
-      }
-      return wasTrue;
-=======
     hasMajorDiagonalConflictAt: function(diagonalId) {
       //create diagonal array
       var diagonal = [];
@@ -261,7 +180,6 @@
         }
       }
       return false;
->>>>>>> df6d645eba8361be04913733c9a65003023f056e
     },
 
 
@@ -270,27 +188,6 @@
     // --------------------------------------------------------------
     //
     // test if a specific minor diagonal on this board contains a conflict
-<<<<<<< HEAD
-    hasMinorDiagonalConflictAt: function(diag) {
-      let sum = 0;
-      let n = this.attributes.n;
-
-      let startRow = Math.max(diag, 0);
-      let endRow = Math.min(n + diag - 1, n - 1);
-      let startCol = Math.max(-diag, 0);
-      let endCol = Math.min(n - diag - 1, n - 1);
-      console.log('Columns', startCol, endCol);
-      console.log('Rows', startRow, endRow);
-      for (let i = startRow; i < endRow + 1; i++) {
-        for (let j = startCol; j < endCol + 1; j++) {
-          if (j + i === diag) {
-            sum += this.attributes[i][j];
-          }
-        }
-      }
-      console.log(diag, sum, sum > 1 ? true : false);
-      return sum > 1 ? true : false;
-=======
     hasMinorDiagonalConflictAt: function(diagonalId) {
       //create diagonal array
       var diagonal = [];
@@ -315,20 +212,10 @@
       }
       //return true if sum >= 2;
       return sum >= 2; 
->>>>>>> df6d645eba8361be04913733c9a65003023f056e
     },
 
     // test if any minor diagonals on this board contain conflicts
     hasAnyMinorDiagonalConflicts: function() {
-<<<<<<< HEAD
-      let n = this.attributes.n;
-      // if any major Diagonal index on board contains a conflict return true
-      // iterate from -(n-1) to n-1 (technically you don't need to hit the corners)
-      for (let i = -n + 1; i < n; i++) {
-        if (i === -2) {
-          debugger;
-        }
-=======
       //max id is sum of bottom right square coordinates aka (# of rows-1, # of rows-1)
       var maxId = (this.rows().length - 1) * 2;
       //min id is 0
@@ -336,15 +223,11 @@
       //loop from min id to max
       for (var i = minId; i <= maxId; i++) {
         //call hasMinorDiagonalConflictAt with the id
->>>>>>> df6d645eba8361be04913733c9a65003023f056e
         if (this.hasMinorDiagonalConflictAt(i)) {
           return true;
         }
       }
-<<<<<<< HEAD
-=======
       //if true, return true 
->>>>>>> df6d645eba8361be04913733c9a65003023f056e
       return false;
     }
 
